@@ -1,15 +1,25 @@
 /**
- * @param {number[]} nums
- * @return {number}
+ * @param {string} a
+ * @param {string} b
+ * @return {string}
  */
-var majorityElement = function (nums) {
-    let maj = Math.floor(nums.length / 2);
-    let memo = new Map();
-    for (let num of nums) {
-        if (memo.has(num)) memo.set(num, memo.get(num) + 1);
-        else memo.set(num, 1);
+var addBinary = function (a, b) {
+    let carry = 0;
+    let maxLength = a.length;
+    if (a.length > b.length) {
+        b = "0".repeat(a.length - b.length) + b;
+    } else {
+        maxLength = b.length;
+        a = "0".repeat(b.length - a.length) + a;
     }
-    for (const [key, value] of memo.entries()) {
-        if (value > maj) return key;
+    var result = "";
+    for (let i = maxLength - 1; i >= 0; i--) {
+        sum = parseInt(a[i]) + parseInt(b[i]) + carry;
+        result = (sum % 2) + result;
+        carry = sum >= 2 ? 1 : 0;
     }
+    if (carry) {
+        result = "1" + result;
+    }
+    return result;
 };
