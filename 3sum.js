@@ -1,33 +1,25 @@
 /**
- * @param {number[]} numbers
- * @param {number} target
- * @return {number[]}
+ * @param {number[]} nums
+ * @return {number[][]}
  */
-var twoSum = function (numbers, target) {
-    let l = 0, r = numbers.length - 1
-    while (l < r) {
-        if (numbers[l] + numbers[r] == target)
-            return [l + 1, r + 1]
-        else if (numbers[l] + numbers[r] < target)
-            l++
-        else
-            r--
+var threeSum = function (nums) {
+    nums.sort((a, b) => a - b);
+    let res = []
+    for (let i = 0; i < nums.length; i++) {
+        if (i > 0 && nums[i] == nums[i - 1]) continue
+        let l = i + 1, r = nums.length - 1
+        while (l < r) {
+            let threesum = nums[i] + nums[l] + nums[r]
+            if (threesum > 0) r--
+            else if (threesum < 0) l++
+            else {
+                res.push([nums[i], nums[l], nums[r]])
+                while (nums[l] == nums[l + 1]) l++
+                while (nums[r] == nums[r - 1]) r--
+                l++
+                r--
+            }
+        }
     }
-    return []
-};/**
-* @param {number[]} numbers
-* @param {number} target
-* @return {number[]}
-*/
-var twoSum = function (numbers, target) {
-    let l = 0, r = numbers.length - 1
-    while (l < r) {
-        if (numbers[l] + numbers[r] == target)
-            return [l + 1, r + 1]
-        else if (numbers[l] + numbers[r] < target)
-            l++
-        else
-            r--
-    }
-    return []
+    return res
 };
